@@ -1,4 +1,9 @@
-<?php include "header.php"?>
+<?php include "header.php";
+
+if($role!=0){
+  header("location:../404.php");
+}
+?>
 
 <div class="container mt-2 table-responsive px-5 py-2 bg-white border border-secondary">
   <h4 class="text-center mb-3">Employee List</h4> <a href="add_emp.php" class="btn btn-primary">Add New</a>

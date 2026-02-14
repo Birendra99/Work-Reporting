@@ -1,4 +1,10 @@
- <?php include "header.php"?>
+ <?php include "header.php";
+ 
+ if($role!=1){
+  header("location:../404.php");
+ }
+
+ ?>
 
 <div class="container mt-5 mb-2">
   <div class="row">

@@ -60,7 +60,7 @@ session_start();
 
     if($rows){
         $record=mysqli_fetch_assoc($query);  
-        $u_data=array($record['fullname'],$record['user_des']);
+        $u_data=array($record['fullname'],$record['user_des'],$record['user_scale'],$record['user_res'],$record['user_role']);
         $_SESSION['u_data']=$u_data;
         $role= $record['user_role'];
 

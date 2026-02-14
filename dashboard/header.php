@@ -1,3 +1,12 @@
+<?php 
+include "config.php";
+session_start(); 
+ if(!isset($_SESSION['u_data'])){
+  header("location:../index.php");
+ }
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -13,9 +22,20 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container"> <a class="navbar-brand" href="#">Employee Portal</a>
-      <form action="" method="POST">
+      <form action="logout.php" method="POST">
         <button name="emp_logout" class="btn btn-danger btn-sm">Logout</button>
       </form>
     </div>
   </nav>
-  <div class="container-fluid bg-white d-flex justify-content-center"> <a href="admin_profile.html" class="btn btn-info btn-sm m-2">Homepage</a> <a href="users_list.html" class="btn btn-info btn-sm m-2">Employees</a> </div>
+
+  <?php if(isset($_SESSION['u_data'])){
+    $data=$_SESSION['u_data'];
+    $role=$data['4'];
+    if($role==0){
+      ?>
+
+   
+  <div class="container-fluid bg-white d-flex justify-content-center"> <a href="admin_profile.php" class="btn btn-info btn-sm m-2">Homepage</a> <a href="users_list.php" class="btn btn-info btn-sm m-2">Employees</a> </div>
+
+  <?php  }
+  } ?>

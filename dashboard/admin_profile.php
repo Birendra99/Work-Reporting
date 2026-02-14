@@ -1,9 +1,19 @@
-<?php include "header.php"?>
+<?php include "header.php";
+if($role!=0){
+  header("location:../404.php");
+}
+
+if(isset($_SESSION['u_data'])){
+  $user=$_SESSION['u_data'];
+
+}
+
+?>
 <div class="container mt-5 mb-2">
   <div class="row m-2">
     <div class="col-md-7 m-auto emp_profile p-4 border border-secondary">
-      <p class="text-center bg-white p-3"> <span class="emp_name">Employee Name</span>
-        <br> <span>(Designation</span> <span>Scale BPS-17)</span> </p>
+      <p class="text-center bg-white p-3"> <span class="emp_name"><?= ucwords($user['0'])?></span>
+        <br> <span>(<?php echo $user['1']?></span> <span><?php echo $user['2']?>)</span> </p>
       <div class="bg-white p-3">
         <form action="" method="POST">
           <label><strong>Daily Work</strong></label>

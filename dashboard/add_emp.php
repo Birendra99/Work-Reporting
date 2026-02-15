@@ -3,6 +3,12 @@
 <div class="container mt-2">
   <form action="" method="POST">
     <div class="row m-2 p-3 register_form border border-secondary">
+
+    <?php echo  if(isset($_SESSION['error'])){
+      $error=$_SESSION['error'];
+      echo $error;
+      unset($_SESSION['error']);
+    } ?>
       <h5 class="text-center">Employee Registration Form</h5>
       <div class="col-md-5 m-auto">
         <div class="mb-2">
@@ -58,5 +64,36 @@
 
 <?php include "footer.php";
 
+if(isset($_POST['add_emp'])){
+  $fullname=mysqli_real_escape_string($con,$_POST['user_name'];)
+  $des=mysqli_real_escape_string($con,$_POST['user_des'];)
+  $res=mysqli_real_escape_string($con,$_POST['user_res'];)
+  $scale=mysqli_real_escape_string($con,$_POST['user_scale'];)
+  $user_id=mysqli_real_escape_string($con,$_POST['user_id']);
+  $pass=mysqli_real_escape_string($con,sha1($_POST['user_pass']));
+   $role=mysqli_real_escape_string($con,$_POST['user_role']);
+  
+   if(strlen($pass)<4){
+        $_SESSION['error']="Password must have minimum 4 char long";
+        header("location:add_emp.php");
+   }
+
+   else{
+        $sql="SELECT * FROM user_tbl WHERE user_id='$user_id'";
+        $query=mysqli_query($con,$sql);
+        $rows=mysqli_num_rows($query);
+
+        if($rows){
+          $_SESSION['error']="User Id is already exits.";
+          header("location:add_emp.php");
+        }
+
+    else{
+      echo "Data Inserted Successfully.";
+    }
+
+   }
+
+}
 
 ?>

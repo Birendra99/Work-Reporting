@@ -1,4 +1,28 @@
-<? include "header.php"?>
+<?php include "header.php";
+  $id=$_GET['id'];
+  $sql="SELECT * FROM user_tbl WHERE id='$id'";
+  $query=mysqli_query($con,$sql);
+  $result=mysqli_fetch_assoc($query);
+
+  if(isset($_POST['update_emp'])){
+    $fullname=mysqli_real_escape_string($con,$_POST['user_name']);
+    $des=mysqli_real_escape_string($con,$_POST['user_des']);
+    $res=mysqli_real_escape_string($con,$_POST['user_res']);
+    $scale=mysqli_real_escape_string($con,$_POST['user_scale']);
+    $u_role=mysqli_real_escape_string($con,$_POST['user_role']);
+
+    $update= "UPDATE user_tbl SET fullname='$fullname',user_des='$des',
+    user_res='$res',user_scale='$scale',user_role='$u_role'   WHERE id='$id' ";
+
+    $query=mysqli_query($con,$update);
+    if($query){
+      $_SESSION['update']="Record Update Successfully.";
+      header("location:users_list.php");
+    }
+  }
+
+
+?>
 <div class="container mt-2">
   <form action="" method="POST">
     <div class="row p-4 register_form border border-secondary">
@@ -6,20 +30,20 @@
       <div class="col-md-5 m-auto">
         <div class="mb-2">
           <label>Fullname</label>
-          <input type="text" name="user_name" placeholder="Fullname" class="form-control" required value="" maxlength="30" minlength="3"> </div>
+          <input type="text" name="user_name" placeholder="Fullname" class="form-control" required value="<?=ucwords($result['fullname']);?>" maxlength="30" minlength="3"> </div>
         <div class="mb-2">
           <label>Designation</label>
-          <input type="text" name="user_des" placeholder="Designation" class="form-control" required value="" maxlength="30" minlength="3"> </div>
+          <input type="text" name="user_des" placeholder="Designation" class="form-control" required value="<?= ucwords($result['user_des']);?>" maxlength="30" minlength="3"> </div>
         <div class="mb-2">
           <label>Responsibilities</label>
-          <textarea class="form-control" rows="6" name="user_res" maxlength="300" minlength="10"> </textarea>
+          <textarea class="form-control" rows="6" name="user_res" maxlength="300" minlength="10"><?= ucwords($result['user_res']); ?> </textarea>
         </div>
       </div>
       <div class="col-md-5 m-auto">
         <div class="mb-2">
           <label>Scale</label>
           <select class="form-control required" name="user_scale">
-            <option value="" selected>Select Scale</option>
+            <option value="<?= ucwords($result['user_scale']); ?>" selected><?= ucwords($result['user_scale']);?></option>
             <option value="BPS-09">BPS-09</option>
             <option value="BPS-10">BPS-10</option>
             <option value="BPS-11">BPS-11</option>
@@ -43,13 +67,21 @@
         <div class="mb-2">
           <label>User Role</label>
           <select required name="user_role" class="form-control">
-            <option selected value="">Select Role</option>
+
+          <?php
+
+          $role=$result['user_role'];
+
+
+          ?>
+
+            <option selected value="<?= $role;?>"><?= ($role==0)?'Admin':'Normal User';?></option>
             <option value="1">Normal User</option>
             <option value="0">Admin</option>
           </select>
         </div>
         <div class="mb-2">
-          <button class="btn btn-primary" name="update_emp">Update</button> <a href="users_list.html" class="btn btn-secondary">Back</a> </div>
+          <button class="btn btn-primary" name="update_emp">Update</button> <a href="users_list.php" class="btn btn-secondary">Back</a> </div>
       </div>
     </div>
   </form>

@@ -33,7 +33,7 @@ $rows=mysqli_num_rows($query);
         <td><?= $result['fullname']?></td>
         <td><?= $result['user_des']?></td>
         <td><?= $result['user_scale']?></td>
-        <td class="d-flex"> <span><a href="profile.php">
+        <td class="d-flex"> <span><a href="profile.php?id=<?=$result['id']?>">
           <i class="bi bi-eye-fill text-success mx-1"></i></a></span> <span><a href="edit_emp.html"><i class="bi bi-pencil-square text-primary mx-1"></i></a></span>
           <form action="" method="POST">
             <input type="hidden" name="user_id" value="">

@@ -1,6 +1,6 @@
  <?php include "header.php";
  
- if($role!=1){
+ if($role!=0){
   header("location:../404.php");
  }
 

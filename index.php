@@ -21,13 +21,16 @@ session_start();
     <div class="row m-2">
       <div class="col-md-5 border border-secondary m-auto p-4 login_form">
         <?php 
-         if(isset($_SESSION['error'])){
-          $msg=$_SESSION['error'];
-          echo " <p class='bg-danger' p-2 text-white text-center'>".$msg."</p>";
+              if(isset($_SESSION['error'])){
+                ?>
+                <div class="alert alert-danger text-center">
+                  <?php echo $_SESSION['error']; ?>
+                </div>
+                <?php
+                unset($_SESSION['error']);
+              }
+              ?>
 
-          unset($_SESSION['error']);
-         }
-        ?>
         <h5 class="text-center pb-2">Employee Login</h5>
         <form action="" method="POST">
           <div class="mb-2">

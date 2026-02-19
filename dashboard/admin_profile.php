@@ -15,7 +15,16 @@ if(isset($_SESSION['u_data'])){
       <p class="text-center bg-white p-3"> <span class="emp_name"><?= ucwords($user['0'])?></span>
         <br> <span>(<?php echo $user['1']?></span> <span><?php echo $user['2']?>)</span> </p>
       <div class="bg-white p-3">
-        <form action="" method="POST">
+          <?php
+              if(isset($_SESSION['error'])){
+                $msg=$_SESSION['error'];
+                echo "<p>$msg</p>";
+                unset($_SESSION['error']);
+              }
+
+         ?>
+
+        <form action="report.php" method="POST">
           <label><strong>Daily Work</strong></label>
           <input type="date" name="work_date" class="form-control" required>
           <button name="report_btn" class="btn btn-primary mt-2">Report Generate</button>
